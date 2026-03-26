@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siêu Phẩm 12A4 - THPT Lê Lợi</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: white; overflow-x: hidden; }
+        
+        canvas#particleCanvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1; }
+
+        .hero-section { 
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.8)), url('pk.jpg');
+            background-size: cover; background-attachment: fixed; background-position: center;
+        }
+
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 10; position: relative; }
+        .gradient-blue { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); }
+        
+        .sub-page { display: none; min-height: 100vh; padding-top: 100px; padding-bottom: 50px; }
+        .active-page { display: block; animation: fadeIn 1s ease; }
+
+        .swiper-main { width: 100%; height: 450px; border-radius: 24px; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; }
+        
+        .disk-rotate { animation: rotate 5s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .masonry-grid { column-count: 2; column-gap: 15px; }
+        @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 15px; border-radius: 15px; overflow: hidden; }
+        
+        .video-container { aspect-ratio: 16/9; width: 100%; border-radius: 20px; overflow: hidden; background: #000; }
+        .btn-fancy { transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .btn-fancy:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="fixed bottom-6 right-6 z-[100] flex items-center gap-3 glass-card p-2 pr-5 rounded-full shadow-2xl">
+        <button id="musicBtn" class="w-12 h-12 gradient-blue rounded-full flex items-center justify-center transition focus:outline-none">
+            <i id="musicIcon" class="fa-solid fa-compact-disc text-xl"></i>
+        </button>
+        <div class="text-[10px] hidden sm:block">
+            <p class="font-bold opacity-80 uppercase tracking-widest">BGM: 12A4 Memories</p>
+            <p id="musicStatus" class="opacity-50 italic">Đang dừng</p>
+        </div>
+        <audio id="bgMusic" loop preload="auto">
+            <source src="nhac.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <nav class="fixed w-full z-[90] py-4 px-6 md:px-12 flex justify-between items-center glass-card" id="navbar">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
+            <img src="logo.jpg" class="w-10 h-10 rounded-full border border-blue-400 object-cover">
+            <span class="font-extrabold tracking-tighter uppercase text-xl">12A4</span>
+        </div>
+        <div class="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-blue-400 transition">Trang chủ</a>
+            <a href="javascript:void(0)" onclick="showPage('dalat')" class="hover:text-blue-400 transition">Kỷ Niệm Đà Lạt</a>
+            <a href="javascript:void(0)" onclick="showPage('kyuc')" class="hover:text-blue-400 transition">Ký Ức 12</a>
+            <a href="javascript:void(0)" onclick="showPage('truyenthong')" class="hover:text-blue-400 transition">Phòng Truyền Thông</a>
+        </div>
+    </nav>
+
+    <div id="home" class="sub-page active-page">
+        <header class="h-screen hero-section flex flex-col justify-center items-center text-center px-4">
+            <div class="animate__animated animate__zoomIn">
+                <img src="logo.jpg" class="w-36 h-36 rounded-full mx-auto mb-8 border-4 border-blue-500 shadow-[0_0_30px_rgba(59,130,246,0.5)] object-cover">
+                <h1 class="text-6xl md:text-9xl font-black mb-4 tracking-tighter italic uppercase">SIÊU PHẨM 12A4</h1>
+                <p class="text-blue-400 tracking-[0.6em] font-light uppercase">THPT Lê Lợi | Niên khóa 2023 - 2026</p>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 py-24 space-y-40">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center reveal">
+                <div class="w-full">
+                    <div class="swiper swiper-main mySwiper">
+                        <div class="swiper-wrapper" id="home-lop-slides"></div>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <h2 class="text-5xl font-black mb-8 italic text-blue-500 uppercase">Hành Trình Học Tập</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg italic text-justify">Dưới mái trường Lê Lợi thân yêu, mỗi tiết học đều là một trang ký ức rực rỡ. Chúng mình cùng nhau vượt qua những kỳ thi cam go, viết nên hành trình nỗ lực không ngừng để chạm đến ước mơ.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row-reverse items-center gap-16 reveal">
+                <div class="w-full md:w-1/2">
+                    <div class="swiper swiper-main mySwiper">
+                        <div class="swiper-wrapper" id="home-2011-slides"></div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 text-right">
+                    <h2 class="text-5xl font-black mb-8 italic text-purple-500 uppercase">Sắc Màu Ngoại Khóa</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg italic text-justify">Khi ánh đèn sân khấu rực sáng, 12A4 cháy hết mình với đam mê. Những điệu nhảy, những hội thao và tiếng cười giòn giã chính là chất keo gắn kết tâm hồn chúng mình lại gần nhau hơn.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="dalat" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-6xl font-black text-emerald-400 uppercase italic">Mộng Mơ Đà Lạt</h2>
+                <p class="text-gray-400 mt-6 max-w-2xl mx-auto italic">Nơi thành phố sương mù lưu giữ những tiếng cười trong trẻo nhất của tuổi trẻ. Đà Lạt không chỉ có thông reo, mà còn có cả một thanh xuân rực rỡ của 12A4 chúng mình.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="album-dl-grid"></div>
+        </div>
+    </div>
+
+    <div id="kyuc" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-6xl font-black text-pink-500 uppercase italic">Ký Ức Tuổi 18</h2>
+                <p class="text-gray-300 mt-6 max-w-4xl mx-auto leading-relaxed italic">Gói gọn trong từng khung hình là những mảnh ghép quý giá của tình bạn. Từ những lần cùng nhau trực nhật, những buổi liên hoan hay cả những phút giây ôn thi căng thẳng, tất cả tạo nên một 12A4 độc nhất vô nhị.</p>
+            </div>
+            <div class="masonry-grid" id="album-kyuc-masonry"></div>
+        </div>
+    </div>
+
+    <div id="truyenthong" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-left mb-16">
+                <h2 class="text-5xl font-black text-sky-400 uppercase italic">Phòng Truyền Thông</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl italic">Không gian lưu trữ những thước phim sống động và những bộ ảnh "để đời". Nơi 12A4 tỏa sáng như những ngôi sao thực thụ qua ống kính đầy nghệ thuật.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20" id="video-grid"></div>
+            <h3 class="text-2xl font-bold uppercase tracking-widest text-gray-500 mb-8 italic">Kho Ảnh Tổng Hợp</h3>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-2" id="media-photo-grid"></div>
+        </div>
+    </div>
+
+    <footer class="bg-black/90 py-24 mt-40 border-t border-white/5 relative z-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+            <div>
+                <img src="logo.jpg" class="w-24 h-24 rounded-2xl mb-8 object-cover shadow-2xl">
+                <h2 class="text-4xl font-black mb-6 italic uppercase">12A4 LE LOI</h2>
+                <div class="space-y-6">
+                    <p class="text-gray-400 italic font-medium text-xl">"Cùng nhau, chúng ta viết nên những điều kỳ diệu."</p>
+                    
+                    <div class="flex flex-col gap-4">
+                        <a href="https://www.tiktok.com/@monhaiabuoi12a4" target="_blank" class="flex items-center gap-4 text-gray-400 hover:text-white transition group w-fit">
+                            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-blue-600 transition"><i class="fa-brands fa-tiktok"></i></div>
+                            Theo dõi TikTok 12A4
+                        </a>
+                        <a href="mailto:lop12a4in2026@gmail.com" class="flex items-center gap-4 text-gray-400 hover:text-white transition group w-fit">
+                            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-red-600 transition"><i class="fa-solid fa-envelope"></i></div>
+                            lop12a4in2026@gmail.com
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                    <h3 class="text-xl font-bold mb-4 uppercase text-blue-400 italic">Lời chúc từ bạn bè:</h3>
+                    <div id="wishBoard" class="space-y-4 max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
+                        </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 md:p-12 rounded-[40px] border border-blue-500/20">
+                <h3 class="text-3xl font-black mb-6 italic uppercase text-blue-400 text-center">Gửi Lời Yêu Thương</h3>
+                
+                <form action="https://docs.google.com/forms/d/e/1FAIpQLSdMrqhK-2UtnOuJjFZ4izPlirFmOLW1VSqiBYLmk5ln76fErA/formResponse"
+                      method="POST" 
+                      id="bootstrapForm"
+                      target="hidden_iframe" 
+                      onsubmit="submitted=true;"
+                      class="space-y-4">
+                    
+                    <div>
+                        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Tên của bạn</label>
+                        <textarea id="817868789" name="entry.817868789" required
+                            placeholder="Tên hoặc biệt danh..." 
+                            class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 transition text-white"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Lời chúc</label>
+                        <textarea id="210356008" name="entry.210356008" required
+                            placeholder="Viết lời chúc tại đây..." rows="3"
+                            class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 transition text-white"></textarea>
+                    </div>
+
+                    <input type="hidden" name="fvv" value="1">
+                    <input type="hidden" name="fbzx" value="3381705099038287363">
+                    <input type="hidden" name="pageHistory" value="0">
+
+                    <button type="submit" class="w-full py-4 gradient-blue text-white rounded-xl font-black uppercase tracking-widest shadow-lg btn-fancy">
+                        Gửi lời chúc <i class="fa-solid fa-heart ml-2"></i>
+                    </button>
+                </form>
+
+                <script type="text/javascript">var submitted=false;</script>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" 
+                        onload="if(submitted) { handleFormSubmit(); }"></iframe>
+                
+                <div class="border-t border-white/10 pt-8 text-center mt-8">
+                    <p class="text-gray-400 mb-6 leading-relaxed italic text-sm">Cảm ơn bạn đã đồng hành cùng 12A4 trong suốt những năm tháng qua!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-20 text-center text-gray-600 text-[10px] uppercase tracking-[0.5em]">
+            <p>&copy; 2026 Bản quyền thuộc về Tập thể 12A4 - THPT Lê Lợi</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Configuration
+        const idsLop = Array.from({length: 13}, (_, i) => i + 1);
+        const ids2011 = Array.from({length: 11}, (_, i) => i + 1);
+        const idsDL = Array.from({length: 18}, (_, i) => i + 1);
+        const idsVD = Array.from({length: 6}, (_, i) => i + 1);
+
+        const allPhotos = [
+            ...idsDL.map(i => `dl${i}.jpg`),
+            ...ids2011.map(i => `20.11.${i}.jpg`),
+            ...idsLop.map(i => `lop${i}.jpg`)
+        ].sort(() => Math.random() - 0.5);
+
+        window.onload = () => {
+            const homeLop = document.getElementById('home-lop-slides');
+            [2,4,5,6,11,12].forEach(i => homeLop.innerHTML += `<div class="swiper-slide"><img src="lop${i}.jpg" loading="lazy"></div>`);
+            
+            const home2011 = document.getElementById('home-2011-slides');
+            [1,2,3,4,5,6,8,10,11].forEach(i => home2011.innerHTML += `<div class="swiper-slide"><img src="20.11.${i}.jpg" loading="lazy"></div>`);
+
+            const gridDL = document.getElementById('album-dl-grid');
+            idsDL.forEach(i => gridDL.innerHTML += `<div class="reveal rounded-xl overflow-hidden aspect-square shadow-xl"><img src="dl${i}.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-500" loading="lazy"></div>`);
+
+            const gridKyuc = document.getElementById('album-kyuc-masonry');
+            allPhotos.forEach(src => gridKyuc.innerHTML += `<div class="masonry-item reveal shadow-2xl"><img src="${src}" class="w-full border border-white/5" loading="lazy"></div>`);
+
+            const videoGrid = document.getElementById('video-grid');
+            idsVD.forEach(i => videoGrid.innerHTML += `<div class="glass-card p-4 rounded-3xl"><div class="video-container"><video controls class="w-full h-full" preload="metadata"><source src="vd${i}.mp4" type="video/mp4"></video></div><p class="mt-4 text-[10px] text-gray-500 text-center uppercase font-bold tracking-widest">Video Kỷ Niệm 0${i}</p></div>`);
+
+            const mediaGrid = document.getElementById('media-photo-grid');
+            allPhotos.forEach(src => mediaGrid.innerHTML += `<div class="aspect-square rounded-lg overflow-hidden border border-white/5"><img src="${src}" class="w-full h-full object-cover hover:opacity-70 transition" loading="lazy"></div>`);
+
+            initSwiper();
+            displayWishes();
+        };
+
+        function handleFormSubmit() {
+            const nameInput = document.getElementById('817868789');
+            const wishInput = document.getElementById('210356008');
+            saveLocalWish(nameInput.value, wishInput.value);
+            document.getElementById('bootstrapForm').reset();
+            alert("Cảm ơn bạn! Lời chúc đã được gửi thành công.");
+            submitted = false;
+        }
+
+        function saveLocalWish(name, content) {
+            const wishes = JSON.parse(localStorage.getItem('wishes12A4')) || [];
+            wishes.push({ name, content, date: new Date().toLocaleString('vi-VN') });
+            localStorage.setItem('wishes12A4', JSON.stringify(wishes));
+            displayWishes();
+        }
+
+        function displayWishes() {
+            const wishBoard = document.getElementById('wishBoard');
+            const wishes = JSON.parse(localStorage.getItem('wishes12A4')) || [];
+            if (wishes.length === 0) {
+                wishBoard.innerHTML = `<p class="text-gray-600 italic text-sm text-center py-10">Hãy gửi lời chúc đầu tiên cho lớp nhé!</p>`;
+                return;
+            }
+            wishBoard.innerHTML = wishes.map(w => `
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/5 animate__animated animate__fadeInUp mb-4">
+                    <p class="text-blue-400 font-bold text-sm mb-1">${w.name}</p>
+                    <p class="text-gray-300 text-sm italic">"${w.content}"</p>
+                    <p class="text-[8px] text-gray-600 mt-2 uppercase tracking-tighter">${w.date}</p>
+                </div>
+            `).reverse().join('');
+        }
+
+        function showPage(id) {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(id).classList.add('active-page');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const statusText = document.getElementById('musicStatus');
+        let isPlaying = false;
+        
+        document.getElementById('musicBtn').onclick = () => {
+            if (!isPlaying) {
+                audio.play();
+                musicIcon.classList.add('disk-rotate');
+                statusText.innerText = "Đang phát";
+            } else {
+                audio.pause();
+                musicIcon.classList.remove('disk-rotate');
+                statusText.innerText = "Đang dừng";
+            }
+            isPlaying = !isPlaying;
+        };
+
+        function initSwiper() {
+            new Swiper(".mySwiper", { loop: true, autoplay: { delay: 3000 }, effect: "fade", crossFade: true });
+        }
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let pArray = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = resize; resize();
+        class Particle {
+            constructor() { this.x = Math.random()*canvas.width; this.y = canvas.height+10; this.v = Math.random()*1.5+0.5; this.icon = ['❤️','✨','🎈'][Math.floor(Math.random()*3)]; }
+            draw() { ctx.font = "14px Arial"; ctx.fillText(this.icon, this.x, this.y); this.y -= this.v; if(this.y<-20) { this.y=canvas.height+20; this.x=Math.random()*canvas.width; } }
+        }
+        for(let i=0; i<30; i++) pArray.push(new Particle());
+        function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); pArray.forEach(p=>p.draw()); requestAnimationFrame(anim); }
+        anim();
+
+        ScrollReveal().reveal('.reveal', { distance: '30px', duration: 1000, origin: 'bottom', interval: 80 });
+    </script>
+</body>
+</html>
