@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12A4 LE LOI - SIÊU PHẨM 2026</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: white; overflow-x: hidden; }
+        
+        /* Particles Canvas */
+        canvas#particleCanvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1; }
+
+        .hero-bg { 
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)), url('pk.jpg');
+            background-size: cover; background-attachment: fixed; background-position: center;
+        }
+
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .sub-page { display: none; min-height: 100vh; padding-top: 100px; padding-bottom: 80px; }
+        .active-page { display: block; animation: fadeIn 0.8s ease-in-out; }
+
+        /* Masonry Grid cho Ký ức 12 */
+        .masonry { column-count: 2; column-gap: 15px; }
+        @media (min-width: 768px) { .masonry { column-count: 3; } }
+        @media (min-width: 1024px) { .masonry { column-count: 5; } }
+        .m-item { break-inside: avoid; margin-bottom: 15px; border-radius: 12px; overflow: hidden; transition: 0.3s; }
+        .m-item:hover { transform: scale(1.02); }
+
+        .video-card { aspect-ratio: 16/9; width: 100%; border-radius: 20px; background: #000; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .disk-rotate { animation: rotate 5s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
+        .nav-link:hover { color: #3b82f6; }
+    </style>
+</head>
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="fixed bottom-6 right-6 z-[100] flex items-center gap-3 glass p-2 pr-5 rounded-full shadow-2xl">
+        <button id="musicBtn" class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center transition hover:scale-110">
+            <i id="musicIcon" class="fa-solid fa-compact-disc text-xl text-white"></i>
+        </button>
+        <audio id="bgMusic" loop><source src="nhac.mp3" type="audio/mpeg"></audio>
+    </div>
+
+    <nav class="fixed w-full z-[90] py-5 px-6 md:px-12 flex justify-between items-center glass border-b border-white/5">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
+            <img src="logo.jpg" class="w-10 h-10 rounded-full border border-blue-500 object-cover">
+            <span class="font-extrabold text-2xl italic tracking-tighter">12A4</span>
+        </div>
+        <div class="hidden lg:flex space-x-8">
+            <a onclick="showPage('home')" class="nav-link">Home</a>
+            <a onclick="showPage('dalat')" class="nav-link">Đà Lạt</a>
+            <a onclick="showPage('kyuc')" class="nav-link">Ký Ức 12</a>
+            <a onclick="showPage('media')" class="nav-link">Truyền Thông</a>
+        </div>
+    </nav>
+
+    <div id="home" class="sub-page active-page">
+        <header class="h-[85vh] hero-bg flex flex-col justify-center items-center text-center">
+            <div class="animate__animated animate__zoomIn">
+                <img src="logo.jpg" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-blue-600 shadow-2xl object-cover">
+                <h1 class="text-7xl md:text-9xl font-black italic mb-2 tracking-tighter">12A4 SERIES</h1>
+                <p class="text-blue-400 tracking-[0.5em] font-light">LE LOI HIGH SCHOOL | 2026</p>
+            </div>
+        </header>
+
+        <section class="max-w-7xl mx-auto px-6 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="reveal">
+                    <h2 class="text-4xl font-black mb-6 text-blue-500 italic uppercase">Tinh thần học tập</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">Nơi những giờ học căng thẳng trở thành kỷ niệm quý giá. 12A4 luôn nỗ lực không ngừng vì tương lai.</p>
+                    <div class="swiper mySwiper h-80 rounded-3xl glass p-2">
+                        <div class="swiper-wrapper" id="home-lop"></div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2 class="text-4xl font-black mb-6 text-purple-500 italic uppercase">Ngoại khóa rực rỡ</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">Sức mạnh của sự đoàn kết rực cháy trên sân khấu 20.11 và các lễ hội trường.</p>
+                    <div class="swiper mySwiper h-80 rounded-3xl glass p-2">
+                        <div class="swiper-wrapper" id="home-2011"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="dalat" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-5xl font-black text-emerald-400 mb-6 italic uppercase">Kỷ Niệm Đà Lạt</h2>
+            <p class="text-gray-400 mb-12 max-w-3xl leading-relaxed italic text-lg">Chuyến đi trải nghiệm cuối cấp cùng lớp và trường đi trải nghiệm Đà Lạt. 18 khoảnh khắc tuyệt đẹp tại thành phố mộng mơ đã gắn kết chúng ta lại gần nhau hơn.</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="grid-dalat">
+                </div>
+        </div>
+    </div>
+
+    <div id="kyuc" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h2 class="text-6xl font-black text-pink-500 mb-8 italic uppercase">Ký Ức Tuổi 18</h2>
+            <p class="text-gray-300 max-w-4xl mx-auto leading-relaxed text-lg italic">
+                Cuối cấp cùng đồng hành, lưu luyến mái trường là thanh xuân đẹp đẽ nhất. Những năm tháng dưới mái trường Lê Lợi thân yêu, ta đã cùng nhau viết nên những trang nhật ký rực rỡ sắc màu của tuổi trẻ. Mỗi nụ cười, mỗi giọt nước mắt chia xa đều là minh chứng cho một tình bạn nồng cháy của tập thể 12A4. Dù mai này khôn lớn, đây sẽ mãi là nơi để chúng ta tìm về trong miền ký ức ngọt ngào nhất.
+            </p>
+        </div>
+        <div class="max-w-[95%] mx-auto masonry px-4" id="grid-kyuc">
+            </div>
+    </div>
+
+    <div id="media" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-5xl font-black text-blue-400 mb-16 italic uppercase">Media Collection</h2>
+            
+            <h3 class="text-xl font-bold mb-8 text-gray-500 tracking-widest uppercase">Video Highlights</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24" id="grid-video">
+                </div>
+
+            <h3 class="text-xl font-bold mb-8 text-gray-500 tracking-widest uppercase">Album Ảnh Tổng Hợp</h3>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-3" id="grid-media-photo">
+                </div>
+        </div>
+    </div>
+
+    <footer class="bg-black/90 py-24 mt-20 border-t border-white/5 relative z-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+            <div>
+                <img src="logo.jpg" class="w-20 h-20 rounded-2xl mb-8 object-cover">
+                <h2 class="text-4xl font-black italic mb-6 uppercase">12A4 LE LOI</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-400 font-semibold italic">"Thanh xuân của bạn có 12A4."</p>
+                    <p class="text-gray-400"><i class="fa-solid fa-envelope text-blue-500 mr-2"></i> lop12a4in2026@gmail.com</p>
+                    <a href="https://www.tiktok.com/@monhaiabuoi12a4?is_from_webapp=1&sender_device=pc" target="_blank" class="flex items-center gap-3 text-gray-400 hover:text-white transition group w-fit">
+                        <i class="fa-brands fa-tiktok text-xl group-hover:scale-125 transition"></i> TikTok 12A4
+                    </a>
+                </div>
+            </div>
+
+            <div class="glass p-10 rounded-[40px] border border-blue-500/20">
+                <h3 class="text-2xl font-bold mb-6 italic">Gửi lời chúc tới lớp</h3>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){alert('Lời chúc đã được gửi thành công!'); location.reload();}"></iframe>
+                <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-0iZ_mB6R7nK5F0H4f7N9IuV4A6B8XyWwG7O9_kP_g/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true;">
+                    <div class="space-y-5">
+                        <input type="text" name="entry.817868789" placeholder="Tên của bạn..." required class="w-full bg-white/5 p-4 rounded-xl outline-none border border-white/10 focus:border-blue-500">
+                        <textarea name="entry.210356008" placeholder="Lời chúc gửi 12A4..." required class="w-full bg-white/5 p-4 rounded-xl h-32 outline-none border border-white/10 focus:border-blue-500"></textarea>
+                        <button type="submit" class="w-full py-4 bg-blue-600 rounded-xl font-black uppercase tracking-widest shadow-xl hover:bg-blue-700 transition">Gửi Lời Chúc <i class="fa-solid fa-paper-plane ml-2"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var submitted = false;
+
+        // Dữ liệu ảnh
+        const listLopHome = [2, 4, 5, 6, 11, 12];
+        const list2011Home = [1, 2, 3, 4, 5, 6, 8, 10, 11];
+        const listDL = Array.from({length: 18}, (_, i) => i + 1);
+        const listLopAll = Array.from({length: 13}, (_, i) => i + 1);
+        const list2011All = Array.from({length: 11}, (_, i) => i + 1);
+        
+        const allPhotos = [
+            ...listDL.map(i => `dl${i}.jpg`),
+            ...list2011All.map(i => `20.11.${i}.jpg`),
+            ...listLopAll.map(i => `lop${i}.jpg`),
+            'lop14.png'
+        ].sort(() => Math.random() - 0.5);
+
+        // Khởi tạo giao diện
+        window.onload = () => {
+            // Home Slides
+            const hLop = document.getElementById('home-lop');
+            const h2011 = document.getElementById('home-2011');
+            listLopHome.forEach(i => hLop.innerHTML += `<div class="swiper-slide"><img src="lop${i}.jpg" class="w-full h-full object-cover rounded-2xl"></div>`);
+            list2011Home.forEach(i => h2011.innerHTML += `<div class="swiper-slide"><img src="20.11.${i}.jpg" class="w-full h-full object-cover rounded-2xl"></div>`);
+
+            // Đà Lạt
+            const gDL = document.getElementById('grid-dalat');
+            listDL.forEach(i => gDL.innerHTML += `<div class="rounded-xl overflow-hidden aspect-square shadow-xl"><img src="dl${i}.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>`);
+
+            // Ký ức 12 (Masonry)
+            const gKyuc = document.getElementById('grid-kyuc');
+            allPhotos.forEach(src => gKyuc.innerHTML += `<div class="m-item shadow-2xl"><img src="${src}" class="w-full shadow-inner border border-white/5"></div>`);
+
+            // Media
+            const gVid = document.getElementById('grid-video');
+            for(let i=1; i<=6; i++) gVid.innerHTML += `<div class="video-card"><video controls class="w-full h-full"><source src="vd${i}.mp4" type="video/mp4"></video></div>`;
+
+            const gMedImg = document.getElementById('grid-media-photo');
+            allPhotos.forEach(src => gMedImg.innerHTML += `<div class="aspect-square rounded-lg overflow-hidden border border-white/5 shadow-md"><img src="${src}" class="w-full h-full object-cover"></div>`);
+
+            new Swiper(".mySwiper", { loop: true, autoplay: { delay: 3000 }, effect: "fade" });
+        };
+
+        function showPage(id) {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(id).classList.add('active-page');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Music & Effects
+        const audio = document.getElementById('bgMusic');
+        const mBtn = document.getElementById('musicBtn');
+        const mIcon = document.getElementById('musicIcon');
+        let p = false;
+        mBtn.onclick = () => {
+            if(!p) { audio.play(); mIcon.classList.add('disk-rotate'); }
+            else { audio.pause(); mIcon.classList.remove('disk-rotate'); }
+            p = !p;
+        };
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let parts = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = resize; resize();
+        class Particle {
+            constructor() { 
+                this.x = Math.random()*canvas.width; 
+                this.y = canvas.height+10; 
+                this.v = Math.random()*1.5 + 0.5; 
+                this.c = ['❤️','🎈','✨'][Math.floor(Math.random()*3)];
+                this.s = Math.random()*12 + 10;
+            }
+            draw() { 
+                ctx.font = `${this.s}px Arial`; 
+                ctx.fillText(this.c, this.x, this.y); 
+                this.y -= this.v; 
+                if(this.y < -20) { this.y = canvas.height + 20; this.x = Math.random()*canvas.width; }
+            }
+        }
+        for(let i=0; i<35; i++) parts.push(new Particle());
+        function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); parts.forEach(p=>p.draw()); requestAnimationFrame(anim); }
+        anim();
+
+        ScrollReveal().reveal('.reveal', { distance: '40px', duration: 1000, origin: 'bottom', interval: 200 });
+    </script>
+</body>
+</html>

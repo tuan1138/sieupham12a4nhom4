@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siêu Phẩm 12A4 - THPT Lê Lợi</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: white; overflow-x: hidden; }
+        
+        /* Hiệu ứng nền */
+        canvas#particleCanvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1; }
+
+        .hero-section { 
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.8)), url('pk.jpg');
+            background-size: cover; background-attachment: fixed; background-position: center;
+        }
+
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 10; position: relative; }
+        .gradient-blue { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); }
+        
+        .sub-page { display: none; min-height: 100vh; padding-top: 100px; padding-bottom: 50px; }
+        .active-page { display: block; animation: fadeIn 1s ease; }
+
+        .swiper-main { width: 100%; height: 450px; border-radius: 24px; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; }
+        
+        /* Disk Animation */
+        .disk-rotate { animation: rotate 5s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .btn-fancy { transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .btn-fancy:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+    </style>
+</head>
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="fixed bottom-6 right-6 z-[100] flex items-center gap-3 glass-card p-2 pr-5 rounded-full shadow-2xl">
+        <button id="musicBtn" class="w-12 h-12 gradient-blue rounded-full flex items-center justify-center transition focus:outline-none">
+            <i id="musicIcon" class="fa-solid fa-compact-disc text-xl"></i>
+        </button>
+        <div class="text-[10px] hidden sm:block">
+            <p class="font-bold opacity-80 uppercase tracking-widest">BGM: 12A4 Memories</p>
+            <p id="musicStatus" class="opacity-50 italic">Đang dừng</p>
+        </div>
+        <audio id="bgMusic" loop><source src="nhac.mp3" type="audio/mpeg"></audio>
+    </div>
+
+    <nav class="fixed w-full z-[90] transition-all duration-500 py-4 px-6 md:px-12 flex justify-between items-center glass-card" id="navbar">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
+            <img src="logo.jpg" class="w-10 h-10 rounded-full border border-blue-400 object-cover">
+            <span class="font-extrabold tracking-tighter uppercase text-xl">12A4</span>
+        </div>
+        <div class="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-blue-400 transition">Trang chủ</a>
+            <a href="javascript:void(0)" onclick="showPage('dalat')" class="hover:text-blue-400 transition">Kỷ Niệm Đà Lạt</a>
+            <a href="javascript:void(0)" onclick="showPage('kyuc')" class="hover:text-blue-400 transition">Ký Ức 12</a>
+            <a href="javascript:void(0)" onclick="showPage('truyenthong')" class="hover:text-blue-400 transition">Truyền Thông</a>
+        </div>
+    </nav>
+
+    <div id="home" class="sub-page active-page">
+        <header class="h-screen hero-section flex flex-col justify-center items-center text-center px-4">
+            <div class="animate__animated animate__zoomIn">
+                <img src="logo.jpg" class="w-36 h-36 rounded-full mx-auto mb-8 border-4 border-blue-500 shadow-[0_0_30px_rgba(59,130,246,0.5)] object-cover">
+                <h1 class="text-6xl md:text-9xl font-black mb-4 tracking-tighter italic">SIÊU PHẨM 12A4</h1>
+                <p class="text-blue-400 tracking-[0.6em] font-light uppercase">Vững bước - Tỏa sáng | 2026</p>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 py-24 space-y-40">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 -mt-48 relative z-20">
+                <div class="glass-card p-12 rounded-[40px] text-center hover:-translate-y-4 transition duration-500">
+                    <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-400 text-2xl"><i class="fa-solid fa-heart"></i></div>
+                    <h3 class="text-xl font-bold mb-3 uppercase tracking-widest">Gắn Kết</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">40 cá tính, 1 gia đình bền vững.</p>
+                </div>
+                <div class="glass-card p-12 rounded-[40px] text-center hover:-translate-y-4 transition duration-500 border-b-4 border-blue-600">
+                    <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-purple-400 text-2xl"><i class="fa-solid fa-star"></i></div>
+                    <h3 class="text-xl font-bold mb-3 uppercase tracking-widest">Nỗ Lực</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Không bao giờ lùi bước trước khó khăn.</p>
+                </div>
+                <div class="glass-card p-12 rounded-[40px] text-center hover:-translate-y-4 transition duration-500">
+                    <div class="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-400 text-2xl"><i class="fa-solid fa-paper-plane"></i></div>
+                    <h3 class="text-xl font-bold mb-3 uppercase tracking-widest">Thành Công</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Chinh phục đại học, mở cửa tương lai.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-16 reveal">
+                <div class="w-full md:w-1/2">
+                    <div class="swiper swiper-main mySwiper">
+                        <div class="swiper-wrapper" id="home-lop-slides">
+                            </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-5xl font-black mb-8 italic text-blue-500">Tinh Thần Học Tập</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg">Học tập không chỉ là nhiệm vụ, mà là niềm kiêu hãnh của 12A4. Dù những con số có khô khan, nhưng chúng mình luôn biết cách biến mỗi tiết học thành những khoảnh khắc đầy sáng tạo và kịch tính dưới mái trường Lê Lợi thân yêu.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row-reverse items-center gap-16 reveal">
+                <div class="w-full md:w-1/2">
+                    <div class="swiper swiper-main mySwiper">
+                        <div class="swiper-wrapper" id="home-2011-slides">
+                            </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 text-right">
+                    <h2 class="text-5xl font-black mb-8 italic text-purple-500">Ngoại Khóa Rực Rỡ</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg">Khi tiếng nhạc vang lên, 12A4 lột xác thành những nghệ sĩ thực thụ. Từ giải văn nghệ 20.11 đến các kỳ hội thao, chúng tôi không chỉ thi đấu - chúng tôi tận hưởng từng giây phút rực rỡ nhất của thanh xuân.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="dalat" class="sub-page">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-6xl font-black text-emerald-400 uppercase italic">Mộng Mơ Đà Lạt</h2>
+                <div class="w-24 h-1 bg-emerald-500 mx-auto my-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto leading-loose text-lg font-light">
+                    Đà Lạt năm ấy không chỉ có cái lạnh buốt của gió cao nguyên hay làn sương mờ ảo, mà còn ấm áp vô cùng bởi ngọn lửa tình bạn của 12A4. Chuyến đi cuối cấp cùng trường là mảnh ghép hoàn hảo nhất, nơi chúng tôi cùng nhau thức xuyên đêm, cùng đi qua những con dốc và hứa với nhau sẽ mãi là bạn tốt. 18 bức ảnh, hàng nghìn kỷ niệm - đó là Đà Lạt trong lòng chúng tôi.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="album-dl-grid">
+                </div>
+            <div class="text-center mt-12">
+                <button onclick="showPage('home')" class="px-10 py-4 glass-card rounded-full hover:bg-emerald-500/20 transition-all font-bold uppercase tracking-widest text-xs">Về trang chủ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="kyuc" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-6xl font-black text-pink-500 uppercase italic">Ký Ức Tuổi 18</h2>
+                <p class="text-gray-300 mt-10 max-w-4xl mx-auto leading-relaxed text-lg">
+                    Thanh xuân của mỗi người giống như một chuyến tàu, và 12A4 chính là toa tàu đẹp nhất mà chúng tôi từng ngồi. Suốt ba năm học, chúng tôi đã cùng nhau đi qua biết bao thăng trầm, từ những buổi sáng trực nhật ngái ngủ đến những buổi liên hoan rộn vang tiếng cười. Mái trường Lê Lợi không chỉ là nơi truyền thụ tri thức, mà còn là nơi lưu giữ hơi thở của tuổi trẻ, những rung động đầu đời và cả những giọt nước mắt chia xa. Dù mai này mỗi người một phương trời, nhưng ký ức về lớp 12A4 sẽ mãi là hành trang quý giá nhất, một vùng trời rực rỡ mà chúng tôi sẽ luôn muốn quay trở về mỗi khi mệt mỏi. Lưu luyến lắm, yêu thương lắm, 12A4 ơi!
+                </p>
+            </div>
+            <div class="columns-2 md:columns-4 lg:columns-5 gap-4 space-y-4" id="album-kyuc-masonry">
+                </div>
+        </div>
+    </div>
+
+    <div id="truyenthong" class="sub-page">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-5xl font-black mb-16 text-sky-400 uppercase italic flex items-center gap-5">
+                <i class="fa-solid fa-clapperboard"></i> Media Studio
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-8">
+                    <h3 class="text-xl font-bold uppercase tracking-widest text-gray-400">Video Highlights (vd1 - vd6)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="video-grid">
+                        </div>
+                </div>
+                <div class="space-y-8">
+                    <h3 class="text-xl font-bold uppercase tracking-widest text-gray-400">Kho lưu trữ ảnh</h3>
+                    <div class="grid grid-cols-3 gap-2 overflow-y-auto max-h-[800px] pr-2 custom-scroll" id="media-photo-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black/80 py-24 mt-40 border-t border-white/5 relative z-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div>
+                <img src="logo.jpg" class="w-24 h-24 rounded-2xl mb-8 object-cover shadow-2xl">
+                <h2 class="text-4xl font-black mb-6 uppercase tracking-tighter italic">12A4 LE LOI</h2>
+                <div class="space-y-6">
+                    <p class="flex items-center gap-4 text-gray-400 font-medium">
+                        <i class="fa-solid fa-envelope text-blue-500 w-5"></i> lop12a4in2026@gmail.com
+                    </p>
+                    <a href="https://www.tiktok.com/@monhaiabuoi12a4?is_from_webapp=1&sender_device=pc" target="_blank" class="btn-fancy flex items-center gap-4 text-gray-400 hover:text-white transition group w-fit">
+                        <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-blue-600 transition"><i class="fa-brands fa-tiktok"></i></div>
+                        Kênh TikTok 12A4
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass-card p-12 rounded-[40px] border border-blue-500/20">
+                <h3 class="text-3xl font-bold mb-6 italic">Gửi lời chúc</h3>
+                <p class="text-gray-400 mb-10 leading-relaxed text-sm italic">"Hãy để lại vài dòng yêu thương cho tập thể lớp mình nhé!"</p>
+                <a href="https://forms.gle/aissJfymMNNMEh7CA" target="_blank" class="block w-full py-5 gradient-blue text-center rounded-2xl font-black uppercase tracking-[0.2em] shadow-2xl btn-fancy">
+                    Mở Biểu Mẫu Lời Chúc <i class="fa-solid fa-paper-plane ml-2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="text-center mt-24 opacity-30 text-[10px] tracking-[0.5em] uppercase">
+            &copy; 2026 12A4 - Together we create miracles.
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. HIỆU ỨNG HẠT (TIM, BONG BÓNG, PHÁO HOA) ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const types = ['❤️', '🎈', '✨'];
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 20 + 10;
+                this.speed = Math.random() * 2 + 1;
+                this.type = types[Math.floor(Math.random() * types.length)];
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.angle = Math.random() * Math.PI * 2;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px serif`;
+                ctx.fillText(this.type, this.x, this.y);
+            }
+            update() {
+                this.y -= this.speed;
+                this.x += Math.sin(this.angle) * 0.5;
+                if (this.y < -50) {
+                    this.y = canvas.height + 100;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+        }
+
+        for (let i = 0; i < 30; i++) particles.push(new Particle());
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- 2. XỬ LÝ ẢNH & VIDEO ---
+        const listLop = [2, 4, 5, 6, 11, 12]; // Đã lọc bỏ các số bạn yêu cầu
+        const list2011 = [1, 2, 3, 4, 5, 6, 8, 10, 11]; // Bỏ 7, 9
+        const listDL = Array.from({length: 18}, (_, i) => i + 1);
+        const listVD = Array.from({length: 6}, (_, i) => i + 1);
+
+        // Chèn ảnh vào các section
+        const renderImgs = (ids, prefix, ext, target) => {
+            const container = document.getElementById(target);
+            if (!container) return;
+            ids.forEach(id => {
+                const url = `${prefix}${id}.${ext}`;
+                const html = target.includes('slides') 
+                    ? `<div class="swiper-slide"><img src="${url}"></div>`
+                    : `<div class="reveal rounded-xl overflow-hidden shadow-lg"><img src="${url}" class="w-full hover:scale-110 transition duration-500"></div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        renderImgs(listLop, 'lop', 'jpg', 'home-lop-slides');
+        renderImgs(list2011, '20.11.', 'jpg', 'home-2011-slides');
+        renderImgs(listDL, 'dl', 'jpg', 'album-dl-grid');
+        
+        // Ký ức 12 (Tổng hợp)
+        const kyucContainer = document.getElementById('album-kyuc-masonry');
+        const allPhotos = [
+            ...listLop.map(i => `lop${i}.jpg`),
+            ...list2011.map(i => `20.11.${i}.jpg`),
+            ...listDL.map(i => `dl${i}.jpg`)
+        ].sort(() => Math.random() - 0.5);
+        
+        allPhotos.forEach(src => {
+            kyucContainer.innerHTML += `<div class="reveal rounded-2xl overflow-hidden shadow-2xl"><img src="${src}" class="w-full hover:opacity-80 transition cursor-zoom-in"></div>`;
+        });
+
+        // Truyền thông (Video & Ảnh)
+        const videoGrid = document.getElementById('video-grid');
+        listVD.forEach(i => {
+            videoGrid.innerHTML += `
+                <div class="glass-card p-4 rounded-3xl">
+                    <video controls class="w-full rounded-2xl"><source src="vd${i}.mp4" type="video/mp4"></video>
+                    <p class="mt-4 text-[10px] text-gray-500 text-center uppercase tracking-widest font-bold">Highlight Clip 0${i}</p>
+                </div>`;
+        });
+        renderImgs(allPhotos.slice(0, 30), '', '', 'media-photo-grid');
+
+        // --- 3. ĐIỀU HƯỚNG & NHẠC ---
+        function showPage(pageId) {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const musicBtn = document.getElementById('musicBtn');
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const status = document.getElementById('musicStatus');
+        let isPlaying = false;
+
+        musicBtn.onclick = () => {
+            if (!isPlaying) {
+                audio.play(); musicIcon.classList.add('disk-rotate'); status.innerText = "Đang phát";
+            } else {
+                audio.pause(); musicIcon.classList.remove('disk-rotate'); status.innerText = "Đang dừng";
+            }
+            isPlaying = !isPlaying;
+        };
+
+        // Khởi tạo Swiper
+        setTimeout(() => {
+            new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: { delay: 3000, disableOnInteraction: false },
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
+            });
+        }, 800);
+
+        ScrollReveal().reveal('.reveal', { distance: '40px', duration: 1000, origin: 'bottom', interval: 100 });
+    </script>
+</body>
+</html>
